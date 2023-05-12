@@ -1,0 +1,28 @@
+#include <Wire.h>
+// Configuración del sensor de humedad
+const int sensorPin = 4;
+// Configuración del relé
+int bombaPin = 5;
+// Nivel de humedad mínimo para activar la bomba
+const int humedadOptima = 3000 ;
+void setup() {
+  // Inicialización del pin del relé
+  pinMode(bombaPin, OUTPUT);
+}
+void loop() {
+  // Leer el valor de humedad del suelo
+  int moistureValue = analogRead(sensorPin);
+  // Verificar si la humedad es inferior al umbral y activar la bomba de agua
+  if (moistureValue < humedadOptima) {
+    activarBomba();
+  } else  {
+    desactivarBomba();
+  }
+  delay(1000);  // Esperar 1 segundo antes de la siguiente lectura
+}
+void activarBomba() {
+  digitalWrite(bombaPin, HIGH);  // Encender el relé (activar la bomba de agua)
+}
+void desactivarBomba() {
+  digitalWrite(bombaPin, LOW);  // Apagar el relé (desactivar la bomba de agua)
+}
